@@ -23,6 +23,7 @@ In this assignment, you will be refactoring and consolidating multiple files to 
 Important Note: 
 No test methods should need to be altered for the tests to pass.
 */
+
 @IsTest
 public with sharing class TriggerBestPracticeTest {
     
@@ -40,7 +41,8 @@ public with sharing class TriggerBestPracticeTest {
 	 * When an account is inserted change the account type to 'Prospect' if there is no value in the type field.
      * Trigger should only fire on insert.
      */
-    @IsTest 
+
+    @IsTest // Passed
     static void testAccountTrigger_setTypeProspect() {
         // Prepare the test data
         List<Account> accountTypeProspect = new List<Account>();
@@ -90,7 +92,8 @@ public with sharing class TriggerBestPracticeTest {
     * When an account is inserted copy the shipping address to the billing address.
     * Trigger should only fire on insert.
     */
-    @IsTest 
+
+    @IsTest // Passed
     static void testAccountTrigger_addressCopy() {
         // Prepare the test data
         List<Account> accountsToInsert = new List<Account>();
@@ -149,7 +152,8 @@ public with sharing class TriggerBestPracticeTest {
     * When an account is inserted set the rating to 'Hot' if the Phone, Website, and Fax is not empty.
     * Trigger should only fire on insert.
     */
-    @IsTest 
+
+    @IsTest // Passed
     static void testAccountTrigger_setRating() {
         // Prepare the test data
         List<Account> accountsToInsert = new List<Account>();
@@ -212,7 +216,8 @@ public with sharing class TriggerBestPracticeTest {
     * Email = 'default@email.com'
     * Trigger should only fire on insert.
     */
-    @IsTest
+
+    @IsTest // Passed
     static void testAccountTrigger_defaultContact() {
         // Prepare the test data
         List<Account> accountsToInsert = new List<Account>();
@@ -255,7 +260,7 @@ public with sharing class TriggerBestPracticeTest {
         System.assertEquals(0, updatedContacts.size(), 'Contacts should not exist.');
     }
 
-    //Part 2 - AnotherOpportunityTrigger Refactor
+    // Part 2 - AnotherOpportunityTrigger Refactor
     /*
     * AnotherOpportunityTrigger was created by a previous developer and is causing some issues.
     * The trigger does not follow best practices and needs to be refactored.
@@ -267,7 +272,8 @@ public with sharing class TriggerBestPracticeTest {
     * - Stop recursion - 1 instance
     * All of the AnotherOpportunityTrigger tests should pass if you have refactored the trigger correctly
     */
-    @IsTest
+
+    @IsTest // Passed
     private static void testAnotherOpportunityTrigger_setType() {
         Account acc = new Account(Name = 'Test Account');
         insert acc;
@@ -290,7 +296,7 @@ public with sharing class TriggerBestPracticeTest {
         }
     }
 
-    @IsTest
+    @IsTest // Passed
     private static void testAnotherOpportunityTrigger_validateCloseOpportunity() {
         Account acc = new Account(Name = 'Test Account');
         insert acc;
@@ -336,7 +342,7 @@ public with sharing class TriggerBestPracticeTest {
         }
     }
 
-    @IsTest
+    @IsTest // Passed
     private static void testAnotherOpportunityTrigger_insertTask() {
         Account acc = new Account(Name = 'Test Account');
         insert acc;
@@ -359,7 +365,7 @@ public with sharing class TriggerBestPracticeTest {
         System.assertEquals(numberOfOpps, tasks.size(), 'Number of Tasks created is incorrect.');
     }
 
-    @IsTest
+    @IsTest // Passed
     private static void testAnotherOpportunityTrigger_updateDescriptionFromStage() {
         Account acc = new Account(Name = 'Test Account');
         insert acc;
@@ -389,7 +395,7 @@ public with sharing class TriggerBestPracticeTest {
         }
     }
 
-    @IsTest
+    @IsTest // Passed
     private static void testAnotherOpportunityTrigger_notifyOwnersOpportunityDeleted() {
         Account acc = new Account(Name = 'Test Account');
         insert acc;
@@ -413,7 +419,7 @@ public with sharing class TriggerBestPracticeTest {
         System.assertEquals(0, opps.size(), 'Number of Opportunities created is incorrect.');
     }
 
-    @IsTest
+    @IsTest // Passed
     private static void testAnotherOpportunityTrigger_assignPrimaryContact() {
         Account acc = new Account(Name = 'Test Account');
         insert acc;
@@ -468,12 +474,11 @@ public with sharing class TriggerBestPracticeTest {
         Test.stopTest();
     }
 
-
-    //Part 3 - OpportunityTriggerHandler Implementation
+    // Part 3 - OpportunityTriggerHandler Implementation
     /*
     * Create a new OpportunityTriggerHandler class that implements TriggerHandler
     * Combine the OpportunityTrigger and AnotherOpportunityTrigger into the new OpportunityTriggerHandler class
-    * Methods from both trigger may have conflicting criteria and should be combined into one method
+    * Methods from both triggers may have conflicting criteria and should be combined into one method
     * Only one OpportunityTrigger needs to run the OpportunityTriggerHandler class and the other can be commented out
     * All of the OpportunityTrigger and AnotherOpportunityTrigger tests should pass if you have implemented the OpportunityTriggerHandler class correctly
     * You can use the OpportunityTrigger provided or the previous one you created is last assignment
@@ -486,7 +491,8 @@ public with sharing class TriggerBestPracticeTest {
     * When an opportunity is updated validate that the amount is greater than 5000.
     * Trigger should only fire on update.
     */
-    @IsTest
+
+    @IsTest // Passed
     static void testOpportunityTrigger_amountValidation() {
         // Prepare the test data
         List<Opportunity> opportunitiesToInsert = new List<Opportunity>();
@@ -537,7 +543,8 @@ public with sharing class TriggerBestPracticeTest {
     * When an opportunity is deleted prevent the deletion of a closed won opportunity if the account industry is 'Banking'.
     * Trigger should only fire on delete.
     */
-    @IsTest
+
+    @IsTest // Passed
     static void testOpportunityTrigger_deleteCloseWonOpportunity() {
         // Prepare the test data
         Account testAccount = new Account(Name = 'Test Account', Industry = 'Banking');
@@ -572,7 +579,8 @@ public with sharing class TriggerBestPracticeTest {
     * When an opportunity is updated set the primary contact on the opportunity to the contact with the title of 'CEO'.
     * Trigger should only fire on update.
     */
-    @IsTest
+    
+    @IsTest // Passed
     static void testOpportunityTrigger_setPrimaryContact() {
         // Prepare the test data
         List<Account> accountsToInsert = new List<Account>();

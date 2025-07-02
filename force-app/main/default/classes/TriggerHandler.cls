@@ -11,6 +11,7 @@
  * 
  * Source: https://github.com/kevinohara80/sfdc-trigger-framework/tree/master
  */
+
 public virtual class TriggerHandler {
 
     // Keeps track of how many times the run() method was invoked for each handler
@@ -266,4 +267,32 @@ public virtual class TriggerHandler {
     // Custom exception to handle specific errors related to the trigger handler.
     public class TriggerHandlerException extends Exception {}
     
+    // These give child classes access to trigger context variables.
+    public List<SObject> newList {
+        get {
+            if (Trigger.isInsert || Trigger.isUpdate || Trigger.isUndelete) {
+                return Trigger.new;
+            }
+            return null;
+        }
     }
+
+    public List<SObject> oldList {
+        get {
+            if (Trigger.isUpdate || Trigger.isDelete) {
+                return Trigger.old;
+            }
+            return null;
+        }
+    }
+
+    public Map<Id, SObject> oldMap {
+        get {
+            if (Trigger.isUpdate || Trigger.isDelete) {
+                return Trigger.oldMap;
+            }
+            return null;
+        }
+    }
+
+  }
